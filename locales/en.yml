@@ -6,6 +6,7 @@ button:
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
   choose-plans: Choose Plans
+  next: Next
 intro:
   desc: Opinionated Vite Starter Template. Customized to support modular architecture pattern.
   dynamic-route: Demo of dynamic route

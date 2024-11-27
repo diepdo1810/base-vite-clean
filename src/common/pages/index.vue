@@ -1,12 +1,13 @@
 <script setup lang="ts">
-// graphql example
-import { useExampleQuery } from '~/common/services/useExample.query'
-const { result, loading, error } = useExampleQuery()
-
+import { useRouter } from 'vue-router'
 // Routing
 const router = useRouter()
 const go = () => {
   router.push('/users/home')
+}
+
+const nextCounter = () => {
+  router.push({ name: 'counter', params: { id: String(Number(router.currentRoute.value.params.id) + 1) } })
 }
 
 // Internationalization
@@ -43,34 +44,16 @@ const { t } = useI18n()
       </button>
     </div>
 
-    <div class="py-4" />
-
-    <h1 class="mb-3 text-lg font-semibold underline">
-      <a href="https://v4.apollo.vuejs.org/" target="_blank">
-        Vue Apollo GraphQL V4 (beta)
-      </a>
-    </h1>
     <div>
-      <div v-if="loading">
-        Loading. . .
-      </div>
-      <div v-else-if="error">
-        Error: {{ error.message }}
-      </div>
-      <div v-else-if="result">
-        <div class="mb-1 text-lg font-semibold">
-          Example Query Result:
-        </div>
-        <code>{{ result }}</code>
-        <div class="mt-5">
-          <div class="mb-1 text-lg font-semibold">
-            Specific values from result object
-          </div>
-          <div>Company CEO: {{ result.company.ceo }}</div>
-          <div>Roadster Apoapsis_au: {{ result.roadster.apoapsis_au }}</div>
-        </div>
-      </div>
+      <button
+        class="m-3 text-sm btn"
+        @click="nextCounter"
+      >
+        {{ t('button.next') }}
+      </button>
     </div>
+
+    <div class="py-4" />
 
     <div class="mx-auto mt-10 prose">
       <h1>Typography Demo</h1>

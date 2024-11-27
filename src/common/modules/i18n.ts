@@ -14,12 +14,22 @@ const messages = Object.fromEntries(
     }),
 )
 
-export const install: UserModule = ({ app }) => {
-  const i18n = createI18n({
-    legacy: false,
-    locale: 'en',
-    messages,
-  })
+const state = useStorage('locale', '')
 
+const i18n = createI18n({
+  legacy: false,
+  locale: state.value,
+  messages,
+})
+
+export const loadLanguageAsync = async (lang: string) => {
+  const messages = await import(`../../../locales/${lang}.yml`)
+  i18n.global.locale.value = lang
+  i18n.global.setLocaleMessage(lang, messages.default)
+}
+
+export const install: UserModule = ({ app }) => {
   app.use(i18n)
+
+  loadLanguageAsync(state.value).then(r => r)
 }

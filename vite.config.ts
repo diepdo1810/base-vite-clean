@@ -35,7 +35,7 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extensions: ['vue', 'md'],
-      pagesDir: [
+      dirs: [
         { dir: 'src/**/pages', baseRoute: '' },
       ],
     }),
@@ -97,7 +97,9 @@ export default defineConfig({
       headEnabled: true,
       markdownItSetup(md) {
         // https://prismjs.com/
+        // @ts-ignore
         md.use(Prism)
+        // @ts-ignore
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {
